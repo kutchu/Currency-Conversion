@@ -1,0 +1,3 @@
+rootProject.name = 'Currency-Conversion'
+include 'Currency-Conversion-Client',
+        'Currency-Conversion-Backend'

@@ -1,0 +1,29 @@
+group = 'com.currency.conversion'
+version = '0.0.1-SNAPSHOT'
+
+allprojects {
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+	}
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Application
+//------------------------------------------------------------------------------------------------------------------------
+
+task bootFullApplication(type: GradleBuild) {
+	group 'application'
+	setTasks([':Currency-Conversion-Client:npmUpdate', ':Currency-Conversion-Client:clean', ':Currency-Conversion-Client:buildClientToSpring', ':Currency-Conversion-Backend:bootRun'])
+}
+
+//------------------------------------------------------------------------------------------------------------------------
+//    Tasks - Init project
+//------------------------------------------------------------------------------------------------------------------------
+
+task wrapper(type: Wrapper) {
+	group 'init'
+	gradleVersion '4.5.1'
+	distributionType Wrapper.DistributionType.ALL
+}
