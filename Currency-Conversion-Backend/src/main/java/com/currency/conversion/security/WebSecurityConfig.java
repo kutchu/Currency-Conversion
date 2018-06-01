@@ -24,37 +24,42 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private RESTAuthenticationEntryPoint restAuthenticationEntryPoint;
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+//    @Autowired
+//    private AuthenticationManager authenticationManager;
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception {
+    protected void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests().antMatchers("/").permitAll().and()
+                .authorizeRequests().antMatchers("/console/**").permitAll();
 
-        http.csrf().disable()
-                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+        httpSecurity.csrf().disable();
+        httpSecurity.headers().frameOptions().disable();
 
-        http.authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers(
-                        HttpMethod.GET,
-                        "/",
-                        "/*.html",
-                        "/favicon.ico",
-                        "/**/*.html",
-                        "/**/*.css",
-                        "/**/*.js",
-                        "/**/*.woff",
-                        "/**/*.woff2",
-                        "/**/*.ttf",
-                        "/webjars/**"
-                ).permitAll()
-                .antMatchers(HttpMethod.GET, "/login").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth").permitAll()
-                .antMatchers(HttpMethod.GET, "/info").permitAll()
-                .antMatchers(HttpMethod.GET, "/health").permitAll()
-                .antMatchers("/rest/**").permitAll()
-                .antMatchers("/view/**").permitAll()
-                .anyRequest().authenticated();
+//        http.csrf().disable()
+//                .exceptionHandling().authenticationEntryPoint(restAuthenticationEntryPoint);
+//
+//        http.authorizeRequests()
+//                .antMatchers("/").permitAll()
+//                .antMatchers(
+//                        HttpMethod.GET,
+//                        "/",
+//                        "/*.html",
+//                        "/favicon.ico",
+//                        "/**/*.html",
+//                        "/**/*.css",
+//                        "/**/*.js",
+//                        "/**/*.woff",
+//                        "/**/*.woff2",
+//                        "/**/*.ttf",
+//                        "/webjars/**"
+//                ).permitAll()
+//                .antMatchers(HttpMethod.GET, "/login").permitAll()
+//                .antMatchers(HttpMethod.POST, "/auth").permitAll()
+//                .antMatchers(HttpMethod.GET, "/info").permitAll()
+//                .antMatchers(HttpMethod.GET, "/health").permitAll()
+//                .antMatchers("/rest/**").permitAll()
+//                .antMatchers("/view/**").permitAll()
+//                .anyRequest().authenticated();
     }
 
 
