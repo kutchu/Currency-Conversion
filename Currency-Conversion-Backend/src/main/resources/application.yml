@@ -1,18 +1,31 @@
 spring:
   h2.console.enabled: true
   datasource:
-    url: jdbc:h2:mem:testdb
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
     driverClassName: org.h2.Driver
     username: sa
     password:
 
-  jpa.database-platform: org.hibernate.dialect.H2Dialect
-  #Turn Statistics on
-  jpa.properties.hibernate.generate_statistics: true
-  # Show all queries
-  jpa.show-sql: true
-  jpa.properties.hibernate.format_sql: true
+# ===========JPA Config====================
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+    database-platform: org.hibernate.dialect.H2Dialect
+    properties:
+      hibernate.dialect: org.hibernate.dialect.H2Dialect
+  #Turn Statistics on and Show all queries
+      hibernate.generate_statistics: true
+      hibernate.format_sql: true
+      hibernate.naming.physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
 
-logging.level.org.hibernate:
-  type: trace
-  stat: debug
+# ===========Logging Config====================
+logging:
+  level:
+    root: WARN
+    com.currency: DEBUG
+    org.springframework.web: INFO
+    org.springframework.security: INFO
+    org.hibernate:
+      type: trace
+      stat: debug
